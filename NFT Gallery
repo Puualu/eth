@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Gallery</title>
+    <style>
+        .nft-gallery { display: flex; flex-wrap: wrap; }
+        .nft-item { margin: 10px; width: 200px; }
+        .nft-item img { width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <h1>NFT Gallery</h1>
+    <div class="nft-gallery" id="nftGallery"></div>
+    <script src="gallery.js"></script>
+</body>
+</html>
