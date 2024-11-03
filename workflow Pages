@@ -1,0 +1,28 @@
+.github/<workflow>name: Deploy Github Pages 
+async function fetchNFTs() {
+    const nftGallery = document.getElementById("nftGallery");
+
+    try {
+        // Fetch NFTs from OpenSea using the ENS domain (replace with your own API key if required)
+        const response = await fetch(`https://api.opensea.io/api/v1/assets?owner=puualu.eth&order_direction=desc&offset=0&limit=10`);
+        const data = await response.json();
+
+        data.assets.forEach(asset => {
+            const nftItem = document.createElement("div");
+            nftItem.className = "nft-item";
+            nftItem.innerHTML = `
+                <img src="${asset.image_url}" alt="${asset.name}">
+                <h3>${asset.name}</h3>
+                <p>${asset.description || 'No description available'}</p>
+                <a href="${asset.permalink}" target="_blank">View on OpenSea</a>
+            `;
+            nftGallery.appendChild(nftItem);
+        });
+    } catch (error) {
+        console.error("Failed to load NFTs:", error);
+        nftGallery.innerHTML = "<p>Failed to load NFTs. Please try again later.</p>";
+    }
+}
+
+// Fetch NFTs on page load
+fetchNFTs();<workflow>
