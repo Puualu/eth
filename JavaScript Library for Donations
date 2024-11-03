@@ -1,0 +1,39 @@
+// donate.js
+async function donate() {
+    if (!window.ethereum) {
+        alert("MetaMask is required to make a donation.");
+        return;
+    }
+
+    // Connect to MetaMask and get the user's wallet address
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    // Set the recipient ENS domain
+    const recipientAddress = "puualu.eth";
+
+    // Ask for donation amount in ETH
+    const donationAmount = prompt("Enter donation amount in ETH:");
+    if (!donationAmount || isNaN(donationAmount)) {
+        alert("Please enter a valid donation amount.");
+        return;
+    }
+
+    // Convert the amount to Wei and send the transaction
+    const tx = {
+        to: recipientAddress,
+        value: ethers.utils.parseEther(donationAmount)
+    };
+
+    try {
+        const transaction = await signer.sendTransaction(tx);
+        alert(`Thank you for your donation! Transaction Hash: ${transaction.hash}`);
+    } catch (error) {
+        console.error(error);
+        alert("Transaction failed. Please try again.");
+    }
+}
+
+// Event listener for the donate button
+document.getElementById("donateButton").addEventListener("click", donate);
